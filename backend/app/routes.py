@@ -1,26 +1,36 @@
-from flask import jsonify, request
 import bcrypt
+from flask import jsonify, request
 from .config import mydb  # Certifique-se de que mydb é gerenciado corretamente
+from app.services.userService import UserService
 
 @app.route('/cadastro', methods=['POST'])
 def cadastrar_usuario():
     try:
-        nome = request.json['nome']
-        email = request.json['email']
-        senha = request.json['senha']
-        tipo_usuario = request.json['tipo_usuario']
-        especialidade = request.json['especialidade']
+        #Criação de parâmetros
+        name       = request.json['nome']
+        email      = request.json['email']
+        password   = request.json['senha']
+        userType   = request.json['tipo_usuario']
+        speciality = request.json['especialidade']
         
-        salt = bcrypt.gensalt()
+        salt       = bcrypt.gensalt()
         senha_hash = bcrypt.hashpw(senha.encode('utf-8'), salt)
 
-        cursor = mydb.cursor()
-        cursor.execute("""INSERT INTO Usuario (nome, email, senha, tipo_usuario, especialidade)
-                          VALUES (%s, %s, %s, %s, %s)""",
-                       (nome, email, senha_hash.decode('utf-8'), tipo_usuario, especialidade))
+        user = UserService.createUser(
+            name       = name,
+            email      = email,
+            password   = password,
+            userType   = userType,
+            speciality = speciality
+        )
         
-        mydb.commit()
-        cursor.close()
+        #cursor = mydb.cursor()
+        #cursor.execute("""INSERT INTO Usuario (nome, email, senha, tipo_usuario, especialidade)
+        #                  VALUES (%s, %s, %s, %s, %s)""",
+        #               (nome, email, senha_hash.decode('utf-8'), tipo_usuario, especialidade))
+        
+        #mydb.commit()
+        #cursor.close()
         return jsonify({'message': 'Usuário cadastrado com sucesso!'}), 201
 
     except Exception as e:
@@ -53,10 +63,12 @@ def login_usuario():
 @app.route('/pacientes', methods=['GET'])
 def get_pacientes():
     try:
-        cursor = mydb.cursor()
-        cursor.execute("SELECT * FROM paciente")
-        pacientes = cursor.fetchall()
-        return jsonify(pacientes)
+        users = UserService.getAllUsers()
+        return jsonify(users)
+        #cursor = mydb.cursor()
+        #cursor.execute("SELECT * FROM paciente")
+        #pacientes = cursor.fetchall()
+        #return jsonify(pacientes)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     finally:
