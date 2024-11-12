@@ -1,0 +1,39 @@
+# Ignorar o ambiente virtual e dependências do backend
+/backend/venv/
+# ou
+/backend/.venv/
+
+/backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+
+# Ignorar arquivos de log do backend
+/backend/*.log
+/backend/*.out
+/backend/*.err
+
+# Ignorar variáveis de ambiente e arquivos sensíveis do backend
+/backend/.env
+/backend/*.env
+
+# Ignorar diretórios de dependências e build do backend
+/backend/pip-wheel-metadata/
+/backend/*.egg-info/
+/backend/dist/
+/backend/build/
+
+# Ignorar banco de dados local do backend
+
+# Ignorar arquivos gerados por IDEs no backend
+/backend/.vscode/
+/backend/.idea/
+/backend/*.iml
+
+# Ignorar migrações e instâncias do Flask no backend
+/backend/migrations/
+/backend/instance/
+
+# Ignorar arquivos temporários do backend
+/backend/*.tmp
+/backend/*.temp
