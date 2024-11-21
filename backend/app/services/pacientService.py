@@ -12,6 +12,10 @@ class PacientService:
         return Pacient.query.all()
     
     @staticmethod
+    def getPacientByName(name):
+        return Pacient.query.filter(Pacient.name.ilike(f"%{name}%")).all()
+    
+    @staticmethod
     def createPacient(name, birthDate, cpf, email, phone, address, healthCarePlan):
         newPacient = Pacient(
             name           = name,

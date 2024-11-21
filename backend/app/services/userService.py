@@ -1,3 +1,4 @@
+import bcrypt
 from app.models.user import User
 from app import db
 
@@ -12,12 +13,16 @@ class UserService:
         return User.query.all()
     
     @staticmethod
+    def get_user_by_name(name):
+        return User.query.filter(User.name.ilike(f"%{name}%")).all()
+    
+    @staticmethod
     def createUser(name, email, password, userType, speciality):
         newUser = User(
             name       = name,
             email      = email,
             password   = password,
-            userType   = usertype,
+            userType   = userType,
             speciality = speciality
         )
         db.session.add(newUser)
@@ -43,3 +48,10 @@ class UserService:
             db.session.delete(user)
             db.session.commit()
         return user
+    
+    @staticmethod
+    def authenticate(email, password):
+        user = User.query.filter_by(email=email).first()
+        if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+            return user
+        return None

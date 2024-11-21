@@ -1,12 +1,11 @@
 from flask import Flask
-from .config import Config  # Certifique-se de que Config está definido corretamente
+from .config import Config
+from backend.app.routes.userRoutes import *
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)  # Carrega as configurações
     
-    # Importa o módulo de rotas para registrar as rotas
-    from routes import *  # Não deve causar erro de sintaxe
 
     return app
 

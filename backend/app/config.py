@@ -8,7 +8,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI        = os.getenv('DATABASE_URL', 'mysql://root:dbDev!6421@localhost/medcare')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-def mydb = mysql.connector.connect(
+mydb = mysql.connector.connect(
     host        ="localhost",
     user        ="root",
     passwd      ="dbDev!6421",
