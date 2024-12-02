@@ -1,6 +1,6 @@
 from flask import Flask
-from .config import Config
-from backend.app.routes.userRoutes import *
+from config import Config
+from backend.app import routes
 
 def create_app():
     app = Flask(__name__)
