@@ -17,11 +17,11 @@ USE `Medcare` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Medcare`.`Paciente` (
   `idPaciente` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NOT NULL,
+  `nome` VARCHAR(100) NOT NULL,
   `sexo` VARCHAR(1) NOT NULL,
   `data_nascimento` DATE NOT NULL,
   `cpf` VARCHAR(11) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
   `telefone` VARCHAR(12) NOT NULL,
   `cep` VARCHAR(8) NOT NULL,
   `plano` VARCHAR(45) NOT NULL,
@@ -35,9 +35,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Medcare`.`Usuario` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `senha` VARCHAR(45) NOT NULL,
+  `nome` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `senha` VARCHAR(100) NOT NULL,
   `tipo_usuario` VARCHAR(45) NOT NULL,
   `especialidade` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idUsuario`))
@@ -48,7 +48,7 @@ ENGINE = InnoDB;
 -- Table `Medcare`.`Revisao`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Medcare`.`Revisao` (
-  `idRevisao` INT NOT NULL,
+  `idRevisao` INT NOT NULL AUTO_INCREMENT,
   `comentarios` LONGTEXT NULL,
   `status_revisao` VARCHAR(45) NOT NULL,
   `data_revisao` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -60,8 +60,8 @@ ENGINE = InnoDB;
 -- Table `Medcare`.`Diagnostico`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Medcare`.`Diagnostico` (
-  `idDiagnostico` INT NOT NULL,
-  `resultado` VARCHAR(45) NOT NULL,
+  `idDiagnostico` INT NOT NULL AUTO_INCREMENT,
+  `resultado` VARCHAR(100) NOT NULL,
   `probabilidade` FLOAT(0) NOT NULL,
   `data_diagnostico` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idDiagnostico`))
@@ -72,9 +72,9 @@ ENGINE = InnoDB;
 -- Table `Medcare`.`Exame`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Medcare`.`Exame` (
-  `idExame` INT NOT NULL,
+  `idExame` INT NOT NULL AUTO_INCREMENT,
   `data_exame` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `imagem_exame` VARCHAR(10) NOT NULL,
+  `imagem_exame` VARCHAR(100) NOT NULL,
   `Revisao_idRevisao` INT NULL,
   `Diagnostico_idDiagnostico` INT NOT NULL,
   `Usuario_idUsuario` INT NOT NULL,
